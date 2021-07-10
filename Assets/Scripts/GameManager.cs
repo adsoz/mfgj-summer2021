@@ -23,4 +23,8 @@ public class GameManager : MonoBehaviour {
 	void InitGame() {
 		boardScript.SetupScene(2);
 	}
+
+	public void GamerOver() {
+		enabled = false;
+	}
 }
