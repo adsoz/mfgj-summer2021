@@ -14,7 +14,10 @@ public class Player : MovingObject {
     	base.Start();
 
     	// start position
-    	transform.position = new Vector3(4,12,0);
+
+        GameObject spawnPoint = GameObject.FindGameObjectWithTag("Respawn");
+        transform.position = spawnPoint.transform.position;
+        // transform.position = new Vector3(4,12,0);
         
     }
 

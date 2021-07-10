@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
 	public static GameManager instance = null;
 	public BoardManager boardScript;
 
-	private int level = 2;
+	private int level = 1;
 
 	void Awake() {
 		if (instance == null) instance = this;
@@ -21,10 +21,12 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void InitGame() {
-		boardScript.SetupScene(2);
+		boardScript.SetupScene(1);
 	}
 
-	public void GamerOver() {
+	public void GameOver() {
 		enabled = false;
+		++level;
+		boardScript.SetupScene(level);	
 	}
 }

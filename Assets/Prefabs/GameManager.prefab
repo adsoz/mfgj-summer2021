@@ -66,6 +66,7 @@ MonoBehaviour:
   - {fileID: 3394006693871260897, guid: 850e381e8e92b4648881f93adcb7d2ce, type: 3}
   blockTiles:
   - {fileID: 6861767676248746148, guid: 31de759dda3f341cda6cafc86a53bd64, type: 3}
+  spikes: {fileID: 8891636480192428350, guid: 414b4a614502f4bcbb358b43b71920f4, type: 3}
   startTile: {fileID: 7881375678141303251, guid: c78f0ae1fef5f477884ce9e2ea67c057,
     type: 3}
   exitTile: {fileID: 7475475021636896306, guid: a1e2519e4f6de475abf90d83d0ea7964,
@@ -82,4 +83,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36dbe23e0a0584b42bae28472fc4cbd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardScript: {fileID: 0}
+  boardScript: {fileID: 8787019657342164443, guid: 28427e23b5f6c478b8ca6b737d2790f2,
+    type: 3}

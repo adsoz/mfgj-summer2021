@@ -32,8 +32,15 @@ public class Block : MonoBehaviour {
 		}
 
     	boxCollider.enabled = false;
-    	hit = Physics2D.Linecast(start, end, blockingLayer);
+    	
+        hit = Physics2D.Linecast(start, end, blockingLayer);
+        Debug.Log(hit.point);
+        Debug.Log(transform.position.x);
+        Debug.Log(transform.position.y);
+
     	boxCollider.enabled = true;
+
+
 
     	if (hit.transform == null) return true;
 
@@ -54,7 +61,7 @@ public class Block : MonoBehaviour {
 				transform.position = new Vector2(transform.position.x, transform.position.y + yDir*blockLength);
 			}
 
-		} 	
+		}
     }
     
 }
