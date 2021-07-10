@@ -4,13 +4,13 @@ using UnityEngine;
 
 public abstract class MovingObject : MonoBehaviour {
 
-	public float moveTime = 0.1f;
+	public float moveTime = 0.001f;
 	public LayerMask blockingLayer;
 
 	private BoxCollider2D boxCollider;
 	private Rigidbody2D rb2D;
 	private float inverseMoveTime;
-    private bool isMoving;
+    public bool isMoving;
 
     // Start is called before the first frame update
     protected virtual void Start() {
@@ -20,20 +20,19 @@ public abstract class MovingObject : MonoBehaviour {
       
     }
 
-    protected bool Move (int xDir, int yDir, out RaycastHit2D hit) {
-    	Vector2 start = transform.position;
-    	Vector2 end = start + new Vector2(xDir, yDir);
+    protected bool Move (Vector2 dir) {
 
     	boxCollider.enabled = false;
-    	hit = Physics2D.Linecast(start, end, blockingLayer);
+    	RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, Mathf.Infinity, blockingLayer);
         boxCollider.enabled = true;
 
-    	if (hit.transform == null && !isMoving) {
-    		StartCoroutine(SmoothMovement(end));
-    		return true;
-    	}
+		Vector3 displacement = (hit.distance - 0.5f) * dir;
 
-    	return false;
+		Vector3 end = transform.position + displacement;
+		if (hit.collider == null) return false;
+
+		StartCoroutine(SmoothMovement(end));
+		return true;
     }
 
     protected IEnumerator SmoothMovement (Vector3 end) {
@@ -50,18 +49,6 @@ public abstract class MovingObject : MonoBehaviour {
 
         rb2D.MovePosition (end);
         isMoving = false;
-    }
-
-    protected virtual void AttemptMove <T> (int xDir, int yDir) where T : Component {
-    	RaycastHit2D hit;
-    	bool canMove = Move(xDir, yDir, out hit);
-
-    	if (hit.transform == null) return;
-
-    	T hitComponent = hit.transform.GetComponent<T>();
-
-    	if (!canMove && hitComponent!=null) OnCantMove(hitComponent, xDir, yDir);
-
     }
 
     protected abstract void OnCantMove <T> (T component, int xDir, int yDir) where T : Component;
