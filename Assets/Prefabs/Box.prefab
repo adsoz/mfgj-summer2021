@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6861767676248746151}
   - component: {fileID: 6861767676248746150}
   - component: {fileID: 6861767676248746149}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,12 +94,12 @@ Rigidbody2D:
   m_GameObject: {fileID: 6861767676248746148}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
