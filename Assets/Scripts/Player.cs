@@ -28,9 +28,9 @@ public class Player : MovingObject {
 
     	if (horizontal!=0) vertical = 0;
     	
-    	if (horizontal!=0 || vertical!=0)
-
-    	AttemptMove<Block>(horizontal, vertical);
+    	if (horizontal!=0 || vertical!=0) {
+    		AttemptMove<Block>(horizontal, vertical);
+    	}
         
     }
 
