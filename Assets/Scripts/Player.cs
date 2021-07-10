@@ -8,6 +8,8 @@ public class Player : MovingObject {
 
 	private Animator animator;
 
+	public Vector2 playerDir;
+
     // Start is called before the first frame update
     protected override void Start() {
     	animator = GetComponent<Animator>();
@@ -20,33 +22,21 @@ public class Player : MovingObject {
 
     // Update is called once per frame
     private void Update() {
-    	int horizontal = 0;
-    	int vertical = 0;
+		if (!isMoving) {
+    		playerDir.x = (Input.GetAxisRaw("Horizontal"));
+    		playerDir.y = (Input.GetAxisRaw("Vertical"));
+		}
 
-    	horizontal = (int) (Input.GetAxisRaw("Horizontal"));
-    	vertical = (int) (Input.GetAxisRaw("Vertical"));
-
-    	if (horizontal!=0) vertical = 0;
+    	if (playerDir.x!=0) playerDir.y = 0;
     	
-    	if (horizontal!=0 || vertical!=0) {
-    		AttemptMove<Block>(horizontal, vertical);
+    	if (playerDir.x!=0 || playerDir.y!=0) {
+			Debug.Log(playerDir);
+    		if (!(Move(playerDir))) {
+				RaycastHit2D hit = Physics2D.Raycast(transform.position, playerDir);
+				OnCantMove(hit.collider, (int) playerDir.x, (int) playerDir.y);
+			}
     	}
         
-    }
-
-    protected override void AttemptMove <T> (int xDir, int yDir) {
-    	base.AttemptMove <T> (xDir, yDir);
-    	RaycastHit2D hit;
-
-    	bool canMove = Move(xDir, yDir, out hit);
-
-    	if (hit.transform == null) return;
-
-    	T hitComponent = hit.transform.GetComponent<T>();
-
-    	if (!canMove && hitComponent!=null) {
-    		OnCantMove(hitComponent, xDir, yDir);
-    	}
     }
 
     private void OnTriggerEnter2D (Collider2D other) {
