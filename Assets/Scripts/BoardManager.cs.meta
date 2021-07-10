@@ -3,7 +3,13 @@ guid: 5a3177ac9c14a42a5ba8d8b6003857e8
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - spikes: {fileID: 8891636480192428350, guid: 414b4a614502f4bcbb358b43b71920f4,
+      type: 3}
+  - startTile: {fileID: 7881375678141303251, guid: c78f0ae1fef5f477884ce9e2ea67c057,
+      type: 3}
+  - exitTile: {fileID: 7475475021636896306, guid: a1e2519e4f6de475abf90d83d0ea7964,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
