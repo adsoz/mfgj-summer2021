@@ -4,65 +4,74 @@ using UnityEngine;
 
 public class Player : MovingObject {
 
-	public float restartLevelDelay = 1f;
+    public float restartLevelDelay = 1f;
 
-	private Animator animator;
+    private Animator animator;
+
+    public Vector2 playerDir;
+
+    public GameManager gameManager;
+
+    GameObject Block;
+
+    
 
     // Start is called before the first frame update
     protected override void Start() {
-    	animator = GetComponent<Animator>();
-    	base.Start();
+        animator = GetComponent<Animator>();
+        base.Start();
 
-    	// start position
-    	transform.position = new Vector3(4,12,0);
+        // start position
+
+        GameObject spawnPoint = GameObject.FindGameObjectWithTag("Respawn");
+        transform.position = spawnPoint.transform.position;
+        // transform.position = new Vector3(4,12,0);
         
     }
 
     // Update is called once per frame
     private void Update() {
-    	int horizontal = 0;
-    	int vertical = 0;
+        if (!isMoving) {
+            playerDir.x = (Input.GetAxisRaw("Horizontal"));
+            playerDir.y = (Input.GetAxisRaw("Vertical"));
+            AttemptMove<Block>();
+        }
 
-    	horizontal = (int) (Input.GetAxisRaw("Horizontal"));
-    	vertical = (int) (Input.GetAxisRaw("Vertical"));
 
-    	if (horizontal!=0) vertical = 0;
-    	
-    	if (horizontal!=0 || vertical!=0) {
-    		AttemptMove<Block>(horizontal, vertical);
-    	}
         
     }
 
-    protected override void AttemptMove <T> (int xDir, int yDir) {
-    	base.AttemptMove <T> (xDir, yDir);
-    	RaycastHit2D hit;
+    protected override void AttemptMove <T>() {
+        if (playerDir.x!=0) playerDir.y = 0;
+        
+        if (playerDir.x!=0 || playerDir.y!=0) {
+            Debug.Log("Attempt Move");
+            Debug.Log(playerDir);
 
-    	bool canMove = Move(xDir, yDir, out hit);
-
-    	if (hit.transform == null) return;
-
-    	T hitComponent = hit.transform.GetComponent<T>();
-
-    	if (!canMove && hitComponent!=null) {
-    		OnCantMove(hitComponent, xDir, yDir);
-    	}
+            if (!(Move(playerDir))) {
+                Vector2 start = transform.position;
+                Vector2 end = start + playerDir;
+                RaycastHit2D hit = Physics2D.Linecast(transform.position, end, blockingLayer);
+                T hitComponent = hit.transform.GetComponent<T>();
+                OnCantMove(hitComponent, (int) playerDir.x, (int) playerDir.y);
+            }
+        }
     }
 
     private void OnTriggerEnter2D (Collider2D other) {
-    	if (other.tag == "Exit") {
-    		Invoke("Restart", restartLevelDelay);
-    		enabled = false;
-    	}
+        if (other.tag == "Exit") {
+            Invoke("Restart", restartLevelDelay);
+            // enabled = false;
+        }
     }
 
     protected override void OnCantMove <T> (T component, int xDir, int yDir) {
-    	Block pushBlock = component as Block;
-    	pushBlock.PushBlock(xDir, yDir);
-    	animator.SetTrigger("playerChop");
+        Block pushBlock = component as Block;
+        pushBlock.PushBlock(xDir, yDir);
+        animator.SetTrigger("playerChop");
     }
 
     private void Restart() {
-    	Application.LoadLevel(Application.loadedLevel);
+        gameManager.NextLevel();
     }
 }

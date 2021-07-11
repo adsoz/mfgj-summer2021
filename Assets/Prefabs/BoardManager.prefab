@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5218077931127316001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6688887604952209937}
+  - component: {fileID: 8787019657342164443}
+  m_Layer: 0
+  m_Name: BoardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6688887604952209937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218077931127316001}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.037966, y: 6.9567223, z: -0.015492953}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8787019657342164443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218077931127316001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3177ac9c14a42a5ba8d8b6003857e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: -979189673944219811, guid: 97e5b98d700104a759865d072be4f131, type: 3}
+  floorTiles:
+  - {fileID: 620069358339300381, guid: 8c7827048c00d4148a6baac1d535d7f0, type: 3}
+  wallTiles:
+  - {fileID: 3394006693871260897, guid: 850e381e8e92b4648881f93adcb7d2ce, type: 3}
+  blockTiles:
+  - {fileID: 6861767676248746148, guid: 31de759dda3f341cda6cafc86a53bd64, type: 3}
+  spikes: {fileID: 8891636480192428350, guid: 414b4a614502f4bcbb358b43b71920f4, type: 3}
+  startTile: {fileID: 7881375678141303251, guid: c78f0ae1fef5f477884ce9e2ea67c057,
+    type: 3}
+  exitTile: {fileID: 7475475021636896306, guid: a1e2519e4f6de475abf90d83d0ea7964,
+    type: 3}

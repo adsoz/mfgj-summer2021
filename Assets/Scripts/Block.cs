@@ -22,22 +22,24 @@ public class Block : MonoBehaviour {
 
 
     protected bool Move (int xDir, int yDir, out RaycastHit2D hit) {
-    	Vector2 start = transform.position;
-    	Vector2 end = start;
+        Vector2 start = transform.position;
+        Vector2 end = start;
 
-    	if (xDir!=0) {
-    		end += new Vector2(xDir, 0);
-		} else if (yDir!=0) {
-			end += new Vector2(0, yDir);
-		}
+        if (xDir!=0) {
+            end += new Vector2(xDir, 0);
+        } else if (yDir!=0) {
+            end += new Vector2(0, yDir);
+        }
 
-    	boxCollider.enabled = false;
-    	hit = Physics2D.Linecast(start, end, blockingLayer);
-    	boxCollider.enabled = true;
+        boxCollider.enabled = false;
+        hit = Physics2D.Linecast(start, end, blockingLayer);
+        Debug.Log(hit.point);
+        Debug.Log(hit.collider);
+        boxCollider.enabled = true;
 
-    	if (hit.transform == null) return true;
+        if (Mathf.Abs(hit.distance) <= 0.25) return true;
 
-    	return false;
+        return false;
     }
 
 
@@ -47,14 +49,14 @@ public class Block : MonoBehaviour {
 
     	bool canMove = Move(xDir, yDir, out hit);
 
-    	if (canMove) {
+    	// if (canMove) {
 	    	if (xDir != 0) {
 	    		transform.position = new Vector2(transform.position.x + xDir*blockLength, transform.position.y);
 			} else if (yDir != 0) {
 				transform.position = new Vector2(transform.position.x, transform.position.y + yDir*blockLength);
 			}
 
-		} 	
+		// }
     }
     
 }
