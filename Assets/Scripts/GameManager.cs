@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour {
 	
 	public static GameManager instance = null;
-	public BoardManager boardScript;
+	public BoardManager boardManager;
 
 	private int level = 1;
 
@@ -16,17 +17,26 @@ public class GameManager : MonoBehaviour {
 
 		DontDestroyOnLoad(gameObject);
 
-		boardScript = GetComponent<BoardManager>();
+		boardManager = GetComponent<BoardManager>();
 		InitGame();
 	}
 
 	void InitGame() {
-		boardScript.SetupScene(2);
+		boardManager.SetupScene(1);
 	}
 
 	public void NextLevel() {
-		enabled = false;
-		++level;
-		boardScript.SetupScene(2);
+		boardManager = GetComponent<BoardManager>();
+		// enabled = false;
+
+        foreach (GameObject o in Object.FindObjectsOfType<GameObject>()) {
+            if(o.tag != "MainCamera" && o.tag != "Player") Destroy(o);
+        }
+
+        // level doesn't reset to 1 between tests? hardcoded in start with then do 2
+        // ++level;
+
+		boardManager.SetupScene(2);
+		
 	}
 }
