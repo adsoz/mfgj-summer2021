@@ -104,7 +104,6 @@ public class BoardManager : MonoBehaviour
 	}
 
 	public void SetupScene (int level) {
-		
 		BoardSetup();
 		LevelSetup(level);
 
