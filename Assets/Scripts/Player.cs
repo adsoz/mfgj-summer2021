@@ -42,8 +42,6 @@ public class Player : MovingObject {
     }
 
     protected override void AttemptMove <T>() {
-        // base.AttemptMove <T> (); 
-
         if (playerDir.x!=0) playerDir.y = 0;
         
         if (playerDir.x!=0 || playerDir.y!=0) {
@@ -63,7 +61,7 @@ public class Player : MovingObject {
     private void OnTriggerEnter2D (Collider2D other) {
         if (other.tag == "Exit") {
             Invoke("Restart", restartLevelDelay);
-            enabled = false;
+            // enabled = false;
         }
     }
 
