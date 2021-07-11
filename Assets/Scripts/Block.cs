@@ -12,6 +12,7 @@ public class Block : MonoBehaviour {
 	private BoxCollider2D boxCollider;
     private Rigidbody2D block;
 
+    public static bool boxMoving = false;
  
     void Start() {
         block  = GetComponent<Rigidbody2D>();
@@ -22,7 +23,7 @@ public class Block : MonoBehaviour {
 
 
     protected bool Move (int xDir, int yDir, out RaycastHit2D hit) {
-        Vector2 start = transform.position;
+        Vector2 start = new Vector2(transform.position.x, transform.position.y);
         Vector2 end = start;
 
         if (xDir!=0) {
@@ -30,33 +31,48 @@ public class Block : MonoBehaviour {
         } else if (yDir!=0) {
             end += new Vector2(0, yDir);
         }
-
+        Debug.Log(transform.position);
+        Debug.Log(start);
+        Debug.Log(end);
         boxCollider.enabled = false;
         hit = Physics2D.Linecast(start, end, blockingLayer);
+        Debug.Log("Box Ray fired");
         Debug.Log(hit.point);
         Debug.Log(hit.collider);
+        Debug.Log("Hit distance:" + hit.distance);
         boxCollider.enabled = true;
 
-        if (Mathf.Abs(hit.distance) <= 0.25) return true;
-
+        if (hit.collider == null) return true;
         return false;
     }
 
 
     public void PushBlock(int xDir, int yDir) {
     	RaycastHit2D hit;
-    	block.isKinematic = true;
-
     	bool canMove = Move(xDir, yDir, out hit);
-
-    	// if (canMove) {
-	    	if (xDir != 0) {
-	    		transform.position = new Vector2(transform.position.x + xDir*blockLength, transform.position.y);
-			} else if (yDir != 0) {
-				transform.position = new Vector2(transform.position.x, transform.position.y + yDir*blockLength);
-			}
-
-		// }
+        Debug.Log(canMove);
+        Vector3 end = transform.position + new Vector3(xDir, yDir);
+    	if (canMove) {
+            StartCoroutine(SmoothMovement(end));
+		}
     }
+
+    protected IEnumerator SmoothMovement (Vector3 end) {
+        boxMoving = true;
+
+        float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+        
+        while (sqrRemainingDistance > float.Epsilon) {
+            Vector3 newPosition = Vector3.MoveTowards(block.position, end, 30 * Time.deltaTime);
+            block.MovePosition(newPosition);
+            sqrRemainingDistance = (transform.position - end).sqrMagnitude;
+            yield return null;
+        }
+
+        block.MovePosition (end);
+        boxMoving = false;
+        
+    }
+
     
 }

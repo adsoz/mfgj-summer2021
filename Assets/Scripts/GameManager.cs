@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void InitGame() {
-		boardScript.SetupScene(1);
+		boardScript.SetupScene(2);
 	}
 
 	public void NextLevel() {
