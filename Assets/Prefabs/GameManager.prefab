@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36dbe23e0a0584b42bae28472fc4cbd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boardManager: {fileID: 0}
 --- !u!114 &1302794075422518862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a3177ac9c14a42a5ba8d8b6003857e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: -979189673944219811, guid: 97e5b98d700104a759865d072be4f131, type: 3}
+  player: {fileID: 0}
   floorTiles:
   - {fileID: 620069358339300381, guid: 8c7827048c00d4148a6baac1d535d7f0, type: 3}
   wallTiles:

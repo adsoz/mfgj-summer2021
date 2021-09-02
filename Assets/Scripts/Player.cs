@@ -12,7 +12,7 @@ public class Player : MovingObject {
 
     public GameManager gameManager;
 
-    GameObject Block;
+    //GameObject Block;
 
     
 
@@ -31,14 +31,12 @@ public class Player : MovingObject {
 
     // Update is called once per frame
     private void Update() {
-        if (!isMoving) {
+        if (!isMoving && !Block.boxMoving) {
             playerDir.x = (Input.GetAxisRaw("Horizontal"));
             playerDir.y = (Input.GetAxisRaw("Vertical"));
             AttemptMove<Block>();
         }
-
-
-        
+  
     }
 
     protected override void AttemptMove <T>() {
