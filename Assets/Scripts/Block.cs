@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Block : MonoBehaviour {
     
-    private float startX, startY;
     private int blockLength = 1; // distance to move one block-length 
     private float rayLength = 0.5f;
  
@@ -13,12 +12,15 @@ public class Block : MonoBehaviour {
     private Rigidbody2D block;
 
     public static bool boxMoving = false;
+
+
+    Block() {
+        Debug.Log("block created");
+    }
  
     void Start() {
         block  = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
-        startX = transform.position.x;
-        startY = transform.position.y;
     }
 
 
@@ -31,15 +33,19 @@ public class Block : MonoBehaviour {
         } else if (yDir!=0) {
             end += new Vector2(0, yDir);
         }
+
         Debug.Log(transform.position);
         Debug.Log(start);
         Debug.Log(end);
+
         boxCollider.enabled = false;
+
         hit = Physics2D.Linecast(start, end, blockingLayer);
         Debug.Log("Box Ray fired");
         Debug.Log(hit.point);
         Debug.Log(hit.collider);
         Debug.Log("Hit distance:" + hit.distance);
+
         boxCollider.enabled = true;
 
         if (hit.collider == null) return true;
