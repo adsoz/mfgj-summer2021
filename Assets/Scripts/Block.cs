@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Block : MonoBehaviour {
     
-    private float startX, startY;
     private int blockLength = 1; // distance to move one block-length 
     private float rayLength = 0.5f;
  
@@ -12,12 +11,12 @@ public class Block : MonoBehaviour {
 	private BoxCollider2D boxCollider;
     private Rigidbody2D block;
 
+    public static bool boxMoving = false;
+
  
     void Start() {
         block  = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
-        startX = transform.position.x;
-        startY = transform.position.y;
     }
 
 
@@ -33,8 +32,10 @@ public class Block : MonoBehaviour {
 
         boxCollider.enabled = false;
         hit = Physics2D.Linecast(start, end, blockingLayer);
+        
         Debug.Log(hit.point);
         Debug.Log(hit.collider);
+        
         boxCollider.enabled = true;
 
         if (Mathf.Abs(hit.distance) <= 0.25) return true;
@@ -49,14 +50,15 @@ public class Block : MonoBehaviour {
 
     	bool canMove = Move(xDir, yDir, out hit);
 
-    	// if (canMove) {
+    	if (canMove) {
 	    	if (xDir != 0) {
 	    		transform.position = new Vector2(transform.position.x + xDir*blockLength, transform.position.y);
 			} else if (yDir != 0) {
 				transform.position = new Vector2(transform.position.x, transform.position.y + yDir*blockLength);
 			}
 
-		// }
+
+		}
     }
     
 }
