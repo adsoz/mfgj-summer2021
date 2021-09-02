@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour {
 	
 	public static GameManager instance = null;
-	public BoardManager boardManager;
+	private BoardManager boardScript;
 
 	private int level = 1;
 
@@ -17,16 +17,16 @@ public class GameManager : MonoBehaviour {
 
 		DontDestroyOnLoad(gameObject);
 
-		boardManager = GetComponent<BoardManager>();
+		boardScript = GetComponent<BoardManager>();
 		InitGame();
 	}
 
 	void InitGame() {
-		boardManager.SetupScene(1);
+		boardScript.SetupScene(1);
 	}
 
 	public void NextLevel() {
-		boardManager = GetComponent<BoardManager>();
+		boardScript = GetComponent<BoardManager>();
 		// enabled = false;
 
         foreach (GameObject o in Object.FindObjectsOfType<GameObject>()) {
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour {
         // level doesn't reset to 1 between tests? hardcoded in start with then do 2
         // ++level;
 
-		boardManager.SetupScene(2);
+		boardScript.SetupScene(2);
 		
 	}
 }
