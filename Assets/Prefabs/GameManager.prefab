@@ -44,7 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36dbe23e0a0584b42bae28472fc4cbd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardManager: {fileID: 0}
+  levelImage1: {fileID: 1912613190917060057, guid: 9a004b0d372f0450e80acef0f84823e5,
+    type: 3}
+  levelImage2: {fileID: 7737251955534224504, guid: 225760c2ba77d4774b0f36f40d242ad5,
+    type: 3}
+  levelImage3: {fileID: 6652004234658106100, guid: 62f206b346f634240b4d815e1ec78ded,
+    type: 3}
+  levelImage4: {fileID: 2585719380365123424, guid: 1e294830bee91408b8cfa8d304c27bb3,
+    type: 3}
+  levelStartDelay: 2
 --- !u!114 &1302794075422518862
 MonoBehaviour:
   m_ObjectHideFlags: 0

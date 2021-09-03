@@ -5,16 +5,10 @@ using UnityEngine;
 public class Player : MovingObject {
 
     public float restartLevelDelay = 1f;
-
     private Animator animator;
-
     public Vector2 playerDir;
-
     public GameManager gameManager;
 
-    //GameObject Block;
-
-    
 
     // Start is called before the first frame update
     protected override void Start() {
@@ -58,8 +52,7 @@ public class Player : MovingObject {
 
     private void OnTriggerEnter2D (Collider2D other) {
         if (other.tag == "Exit") {
-            Invoke("Restart", restartLevelDelay);
-            // enabled = false;
+            Invoke("NextLevel", restartLevelDelay);
         }
     }
 
@@ -69,7 +62,11 @@ public class Player : MovingObject {
         animator.SetTrigger("playerChop");
     }
 
-    private void Restart() {
+    private void NextLevel() {
         gameManager.NextLevel();
+    }
+
+    private void RestartLevel() {
+        gameManager.RestartLevel();
     }
 }
