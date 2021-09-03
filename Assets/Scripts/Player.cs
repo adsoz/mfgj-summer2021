@@ -66,7 +66,7 @@ public class Player : MovingObject {
         } else if (component.CompareTag("Wall")) {
             return;
         } else if (component.CompareTag("Spikes")) {
-            Restart(); // make this reset the level
+            RestartLevel(); // make this reset the level
         }
         
     }
