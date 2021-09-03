@@ -53,6 +53,8 @@ public class Player : MovingObject {
                 Vector2 end = start + playerDir;
                 RaycastHit2D hit = Physics2D.Linecast(transform.position, end, blockingLayer);
                 T hitComponent = hit.transform.GetComponent<T>();
+                Debug.Log("hit object: ");
+                Debug.Log(hitComponent);
                 OnCantMove(hitComponent, (int) playerDir.x, (int) playerDir.y);
             }
         }
@@ -66,9 +68,16 @@ public class Player : MovingObject {
     }
 
     protected override void OnCantMove <T> (T component, int xDir, int yDir) {
-        Block pushBlock = component as Block;
-        pushBlock.PushBlock(xDir, yDir);
-        animator.SetTrigger("playerChop");
+        if (component.CompareTag("Block")) {
+            Block pushBlock = component as Block;
+            pushBlock.PushBlock(xDir, yDir);
+            animator.SetTrigger("playerChop");
+        } else if (component.CompareTag("Wall")) {
+            return;
+        } else if (component.CompareTag("Spikes")) {
+            Restart(); // make this reset the level
+        }
+        
     }
 
     private void Restart() {
