@@ -5,16 +5,10 @@ using UnityEngine;
 public class Player : MovingObject {
 
     public float restartLevelDelay = 1f;
-
     private Animator animator;
-
     public Vector2 playerDir;
-
     public GameManager gameManager;
 
-    //GameObject Block;
-
-    
 
     // Start is called before the first frame update
     protected override void Start() {
@@ -51,6 +45,8 @@ public class Player : MovingObject {
                 Vector2 end = start + playerDir;
                 RaycastHit2D hit = Physics2D.Linecast(transform.position, end, blockingLayer);
                 T hitComponent = hit.transform.GetComponent<T>();
+                Debug.Log("hit object: ");
+                Debug.Log(hitComponent);
                 OnCantMove(hitComponent, (int) playerDir.x, (int) playerDir.y);
             }
         }
@@ -58,18 +54,28 @@ public class Player : MovingObject {
 
     private void OnTriggerEnter2D (Collider2D other) {
         if (other.tag == "Exit") {
-            Invoke("Restart", restartLevelDelay);
-            // enabled = false;
+            Invoke("NextLevel", restartLevelDelay);
         }
     }
 
     protected override void OnCantMove <T> (T component, int xDir, int yDir) {
-        Block pushBlock = component as Block;
-        pushBlock.PushBlock(xDir, yDir);
-        animator.SetTrigger("playerChop");
+        if (component.CompareTag("Block")) {
+            Block pushBlock = component as Block;
+            pushBlock.PushBlock(xDir, yDir);
+            animator.SetTrigger("playerChop");
+        } else if (component.CompareTag("Wall")) {
+            return;
+        } else if (component.CompareTag("Spikes")) {
+            RestartLevel(); // make this reset the level
+        }
+        
     }
 
-    private void Restart() {
+    private void NextLevel() {
         gameManager.NextLevel();
+    }
+
+    private void RestartLevel() {
+        gameManager.RestartLevel();
     }
 }

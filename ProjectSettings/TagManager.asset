@@ -4,11 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Food
   - Exit
-  - Enemy
-  - Soda
   - Block
+  - Wall
+  - Undefined
+  - Spike
+  - UI
   layers:
   - Default
   - TransparentFX
